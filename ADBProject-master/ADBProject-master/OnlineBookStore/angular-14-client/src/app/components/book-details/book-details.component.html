@@ -1,0 +1,169 @@
+<div *ngIf="viewMode; else editable">
+  <div *ngIf="currentBook.id">
+    <h4>Book</h4>
+    <div>
+      <label><strong>ISBN:</strong></label>
+      {{ currentBook.isbn }}
+    </div>
+    <div>
+      <label><strong>Title:</strong></label> {{ currentBook.title }}
+    </div>
+    <div>
+      <label><strong>Author:</strong></label>
+      {{ currentBook.author }}
+    </div>
+    <div>
+      <label><strong>Description:</strong></label>
+      {{ currentBook.description }}
+    </div>
+    <div>
+      <label><strong>Genre:</strong></label>
+      {{ currentBook.genre }}
+    </div>
+    <div>
+      <label><strong>Price:</strong></label>
+      {{ currentBook.price }}
+    </div>
+    <div>
+      <label><strong>Stock:</strong></label>
+      {{ currentBook.stock }}
+    </div>
+    <div *ngIf="!isAdmin" class="form-group">
+      <label for="quantity"><strong>Quantity:</strong></label>
+      <input
+        type="number"
+        class="form-control"
+        id="quantity"
+        [(ngModel)]="quantity"
+        name="quantity"
+      />
+    </div>
+    <div *ngIf="!isAdmin && currentBook.reviews && currentBook.reviews.length > 0" class="mb-3">
+      <ul class="list-group">
+        <label><strong>Reviews:</strong></label>
+        <li
+          class="list-group-item"
+          *ngFor="let review of currentBook.reviews; let i = index"
+        >
+          {{ review.comment }}
+        </li>
+      </ul>
+    </div>
+
+    <a
+      *ngIf="isAdmin"
+      class="badge badge-warning"
+      routerLink="/books/{{ currentBook.id }}"
+    >
+      Edit
+    </a>
+    <div *ngIf="!isAdmin">
+      <button (click)="addToCart()" class="btn btn-primary margin-left mr-5">Add To Cart</button>
+      <p *ngIf="isCartAdded" class="mt-2"> {{ cartAddedMessage }} </p>
+    </div>
+  </div>
+
+  <div *ngIf="!currentBook">
+    <br />
+    <p>Please click on a Book...</p>
+  </div>
+</div>
+
+<ng-template #editable>
+  <div *ngIf="currentBook.id" class="edit-form">
+    <h4>Book</h4>
+    <form>
+      <div class="form-group">
+        <label for="isbn">ISBN</label>
+        <input
+          type="number"
+          class="form-control"
+          id="isbn"
+          [(ngModel)]="currentBook.isbn"
+          name="isbn"
+        />
+      </div>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          [(ngModel)]="currentBook.title"
+          name="title"
+        />
+      </div>
+      <div class="form-group">
+        <label for="author">Author</label>
+        <input
+          type="text"
+          class="form-control"
+          id="author"
+          [(ngModel)]="currentBook.author"
+          name="author"
+        />
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input
+          type="text"
+          class="form-control"
+          id="description"
+          [(ngModel)]="currentBook.description"
+          name="description"
+        />
+      </div>
+      <div class="form-group">
+        <label for="genre">Genre</label>
+        <input
+          type="text"
+          class="form-control"
+          id="genre"
+          [(ngModel)]="currentBook.genre"
+          name="genre"
+        />
+      </div>
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input
+          type="number"
+          class="form-control"
+          id="price"
+          [(ngModel)]="currentBook.price"
+          name="price"
+        />
+      </div>
+      <div class="form-group">
+        <label for="stock">Stock</label>
+        <input
+          type="number"
+          class="form-control"
+          id="stock"
+          [(ngModel)]="currentBook.stock"
+          name="stock"
+        />
+      </div>
+    </form>
+    <button class="badge badge-primary mr-2" (click)="redirectToBooksPage()">
+      Back
+    </button>
+
+    <button class="badge badge-danger mr-2" (click)="deleteBook()">
+      Delete
+    </button>
+
+    <button
+      type="submit"
+      class="badge badge-success mb-2"
+      (click)="updateBook()"
+    >
+      Update
+    </button>
+    <p>{{ message }}</p>
+  </div>
+
+  <div *ngIf="!currentBook.id">
+    <br />
+    <p>Cannot access this Book...</p>
+  </div>
+</ng-template>

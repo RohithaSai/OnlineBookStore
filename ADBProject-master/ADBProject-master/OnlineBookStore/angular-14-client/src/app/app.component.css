@@ -1,0 +1,27 @@
+.align-right {
+  align-content: right;
+}
+
+nav {
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIwZR5nyEaPS_97fwqLAXGulgIYmTuZr9zmw&usqp=CAU");
+  background-color: rgb(245, 40, 54);
+}
+
+nav a:hover {
+  background-color: rgb(188, 176, 180);
+}
+
+li a {
+  display: block;
+  color: rgb(209, 226, 211);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: white;
+}
+li a:hover {
+  background-color: rgb(219, 192, 201);
+  text-decoration-color: black;
+}
+.active {
+  background-color: #ce182a;
+}
